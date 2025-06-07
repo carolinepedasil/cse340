@@ -178,3 +178,22 @@ footer {
     flex: 1;
   }
 }
+
+.vehicle-detail {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.vehicle-detail img {
+  width: 100%;
+  max-width: 500px;
+}
+
+@media(min-width: 768px) {
+  .vehicle-detail {
+    flex-wrap: nowrap;
+  }
+  .vehicle-info {
+    margin-left: 2rem;
+  }
+}

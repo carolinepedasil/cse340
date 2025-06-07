@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+
+<main class="vehicle-detail-container">
+  <h1><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></h1>
+  <div class="vehicle-detail">
+    <img src="<%= vehicle.image %>" alt="Image of <%= vehicle.make %> <%= vehicle.model %>">
+    <div class="vehicle-info">
+      <h2>$<%= vehicle.price.toLocaleString() %></h2>
+      <p><strong>Mileage:</strong> <%= vehicle.miles.toLocaleString() %> miles</p>
+      <p><strong>Description:</strong> <%= vehicle.description %></p>
+      <p><strong>Color:</strong> <%= vehicle.color %></p>
+      <p><strong>Transmission:</strong> <%= vehicle.transmission %></p>
+      <p><strong>Drive Train:</strong> <%= vehicle.driveTrain %></p>
+    </div>
+  </div>
+</main>
+
+<style>
+  .vehicle-detail-container {
+    padding: 1rem;
+  }
+  .vehicle-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .vehicle-detail img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+  }
+  .vehicle-info {
+    flex: 1;
+    min-width: 250px;
+  }
+  @media (max-width: 768px) {
+    .vehicle-detail {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<%- include('../partials/footer') %>
