@@ -4,11 +4,10 @@ const utilities = require("../utilities");
 async function buildManagementView(req, res, next) {
   try {
     const nav = await utilities.getNav();
-    res.render("inventory/management", {
-      title: "Inventory Management",
-      nav,
-      message: req.flash("info"),
-    });
+    res.render('inventory/management', {
+      title: 'Vehicle Management',
+      message: req.flash('info')
+    })
   } catch (error) {
     next(error);
   }

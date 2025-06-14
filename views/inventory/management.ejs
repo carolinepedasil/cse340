@@ -1,17 +1,17 @@
 <%- include('../partials/header') %>
 
 <main class="wrapper">
-  <h1>Inventory Management</h1>
+    <h1>Vehicle Management</h1>
 
-  <% if (message && message.length) { %>
+    <% if (message && message.length) { %>
     <p class="notice"><%= message %></p>
-  <% } %>
+    <% } %>
 
-  <ul>
+    <ul>
     <li><a href="/inv/add-classification">Add New Classification</a></li>
     <li><a href="/inv/add-inventory">Add New Inventory Item</a></li>
     <li><a href="/">View Inventory by Classification</a></li>
-  </ul>
+    </ul>
 </main>
 
 <%- include('../partials/footer') %>
