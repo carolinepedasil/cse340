@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+
+<main class="wrapper">
+  <h1>Add Classification</h1>
+
+  <% if (message.length > 0) { %>
+    <p class="notice"><%= message %></p>
+  <% } %>
+
+  <form action="/inv/add-classification" method="post">
+    <label for="classification_name">Classification Name</label>
+    <input
+      type="text"
+      id="classification_name"
+      name="classification_name"
+      required
+      pattern="^[a-zA-Z0-9]+$"
+      title="No spaces or special characters allowed"
+    />
+    <button type="submit">Add Classification</button>
+  </form>
+
+  <% if (errors) { %>
+    <ul class="errors">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

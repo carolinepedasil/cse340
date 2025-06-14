@@ -1,11 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const invController = require("../controllers/invController");
+const invController = require('../controllers/invController');
 
-router.get("/type/:classification", invController.buildByClassification);
+router.get('/', invController.buildManagementView);
 
-router.get("/cause-error", (req, res, next) => {
-  next(new Error("Intentional 500 error for testing"));
-});
+router.get('/add-classification', invController.buildAddClassificationView);
+router.post('/add-classification', invController.addClassification);
+
+router.get('/type/:classification', invController.buildByClassification);
 
 module.exports = router;
