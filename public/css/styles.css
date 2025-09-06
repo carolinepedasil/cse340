@@ -1,0 +1,290 @@
+:root{
+  --bg-check: url("/images/site/checkerboard.jpg");
+  --ink:#1b1e23;
+  --muted:#374151;
+  --brand:#10bcd2;
+  --nav-bg:#000;
+  --nav-ink:#fff;
+  --tile:#10bcd2;
+  --tile-brd:#0e8ea1;
+  --focus:#f59e0b;
+  --text: #0000ff;
+}
+
+*{ 
+  box-sizing:border-box 
+}
+
+html,body{ 
+  height:100% 
+}
+
+body{
+  margin:0;
+  font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--ink);
+  background: var(--bg-check) center/400px repeat;
+}
+
+.frame{
+  position: relative;
+  width: min(1100px, 92%);
+  margin: 1rem auto;
+  background: #fff;
+  border: 4px solid #0ec2d7;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: calc(100vh - 2rem);
+}
+
+.site-header,
+.site-nav,
+.container,
+.site-footer{ 
+  background:#fff; 
+}
+
+.visually-hidden{
+  position:absolute!important; 
+  clip:rect(1px,1px,1px,1px);
+  width:1px;height:1px; 
+  overflow:hidden; 
+  white-space:nowrap;
+}
+
+.skip-link{
+  position:absolute; 
+  left:-9999px; 
+  top:auto; 
+  width:1px; 
+  height:1px; 
+  overflow:hidden;
+}
+
+.skip-link:focus{ 
+  left:1rem; 
+  top:1rem; 
+  width:auto; 
+  height:auto; 
+  padding:.5rem .75rem; 
+  background:#fff; 
+  border:2px solid var(--focus); 
+  z-index:1000 
+}
+
+.site-header .brand img{ 
+  display:none; 
+}
+
+.site-header{
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between;
+  padding:1rem 1.25rem;
+  border-bottom:4px solid #0ec2d7;
+}
+
+.brand{ 
+  display:flex; 
+  align-items:center; 
+  gap:.5rem; 
+}
+
+.brand-title{ 
+  font-weight:800; 
+  font-size:2rem; 
+  letter-spacing:.2px; 
+}
+
+.account{ 
+  color:var(--muted); 
+  text-decoration:none; 
+  font-weight:600; 
+}
+
+.account:hover,.account:focus{ 
+  text-decoration:underline 
+}
+
+.site-nav{ 
+  background:var(--nav-bg); 
+}
+
+.site-nav ul{
+  list-style:none; 
+  margin:0; 
+  padding:.6rem 1rem;
+  display:flex; 
+  gap:1rem; 
+  justify-content:center;
+}
+
+.site-nav a{
+  color:var(--nav-ink); 
+  text-decoration:none; 
+  font-weight:700;
+  padding:.45rem .9rem; 
+  border-radius:.5rem;
+}
+
+.site-nav a:hover, .site-nav a:focus{ 
+  text-decoration:underline; 
+}
+
+.container{ 
+  width:min(980px, 90%); 
+  margin:0 auto; 
+  padding-bottom:1rem; 
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.hero-art{ 
+  display:flex; 
+  justify-content:center; 
+}
+
+.hero-art img{ 
+  width:min(620px, 100%); 
+  height:auto; 
+  display:block; 
+}
+
+.hero-card {
+  position: absolute;
+  top: 20%;
+  left: 2rem;
+  z-index: 2;
+  background: rgba(255,255,255,.85);
+  padding: 1rem 1rem 1.1rem;
+  max-width: 20rem;
+  color: var(--brand);
+}
+
+.hero-card h3{ 
+  margin:.25rem 0 .5rem; 
+}
+
+.hero-bullets{ 
+  list-style:none; 
+  padding:0; 
+  margin:.25rem 0 1rem; 
+}
+
+.btn{
+  display:inline-block;
+  background:var(--brand); 
+  color:#07141a;
+  padding:.55rem 1rem; 
+  font-weight:800; 
+  text-decoration:none;
+}
+
+.btn:focus{ 
+  outline:3px solid var(--focus); 
+  outline-offset:2px 
+}
+
+.two-col{ 
+  display:grid; 
+  gap:2rem; 
+  padding:0 1rem 1rem; 
+}
+
+.panel h3{ 
+  margin:.5rem 0 .75rem; 
+}
+
+.upgrades-panel{ 
+  order: 2; 
+}
+
+.reviews-panel{ 
+  order: 1; 
+}
+
+.reviews{ 
+  padding-left:1.2rem; 
+}
+
+.upgrades{
+  list-style:none; 
+  padding:0; 
+  margin:0;
+  display:grid; 
+  grid-template-columns:1fr 1fr; 
+  gap:1rem;
+}
+
+.upgrade-tile{
+  background: var(--tile);
+  border: 4px solid var(--tile-brd);
+  padding: .6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upgrade-tile img{
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  background:#fff;
+}
+
+.upgrade-link{
+  display:block;
+  margin-top:.4rem;
+  color: #0b1a24;
+  text-decoration: underline;
+  font-weight:700;
+  text-align:center;
+  color:var(--text);
+}
+
+.site-footer{ 
+  padding:1rem; 
+  color:#4b5563 
+}
+
+@media (min-width: 840px){
+  .hero{ 
+    padding:1.25rem 1rem 0; 
+  }
+  .hero-card{
+    left:2rem;
+    top: calc(3.2rem + 80px);
+    margin-top: 0;
+  }
+  .two-col{
+    grid-template-columns:1fr 1fr;
+    align-items:start;
+    gap:2rem;
+  }
+  .upgrades-panel{ 
+    order: 1; 
+  }
+  .reviews-panel{ 
+    order: 2; 
+    padding-left:12px; 
+  }
+}
+
+@media (max-width: 839px){
+  body{ 
+    background:#fff; 
+  }
+  .frame{
+    width:100%;
+    margin:0;
+    border:0;
+    border-radius:0;
+    min-height:100vh;
+    overflow: visible;
+  }
+}
