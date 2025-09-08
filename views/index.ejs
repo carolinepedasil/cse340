@@ -1,78 +1,62 @@
-<!doctype html>
-<html lang="en">
-  <head><%- include("partials/head") %></head>
-  <body>
-    <div class="checkerboard"></div>
-    <div class="frame">
-      <%- include("partials/header") %>
-      <%- include("partials/nav") %>
+<h1 class="visually-hidden">CSE Motors – Home</h1>
 
-      <main id="main" class="container">
-        <h1 class="visually-hidden">CSE Motors – Home</h1>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-text">
+    <h2 id="hero-title">Welcome to CSE Motors!</h2>
+    <article class="hero-card" aria-labelledby="car-title">
+      <h3 id="car-title">DMC Delorean</h3>
+      <ul class="hero-bullets">
+        <li>3 Cup holders</li>
+        <li>Superman doors</li>
+        <li>Fuzzy dice!</li>
+      </ul>
+      <a class="btn" href="#">Own Today</a>
+    </article>
+  </div>
+  <figure class="hero-art">
+    <img src="/images/vehicles/delorean.jpg" alt="Silver DMC Delorean" />
+  </figure>
+</section>
 
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-text">
-            <h2 id="hero-title">Welcome to CSE Motors!</h2>
-            <article class="hero-card" aria-labelledby="car-title">
-              <h3 id="car-title">DMC Delorean</h3>
-              <ul class="hero-bullets">
-                <li>3 Cup holders</li>
-                <li>Superman doors</li>
-                <li>Fuzzy dice!</li>
-              </ul>
-              <a class="btn" href="#" aria-label="Own a Delorean today">Own Today</a>
-            </article>
-          </div>
-          <figure class="hero-art">
-            <img src="/images/vehicles/delorean.jpg" alt="Silver DMC Delorean" />
-          </figure>
-        </section>
-
-        <section class="two-col">
-            <article class="panel upgrades-panel">
-            <h3>Delorean Upgrades</h3>
-            <ul class="upgrades">
-              <li>
+<section class="two-col">
+  <article class="panel upgrades-panel">
+    <h3>Delorean Upgrades</h3>
+    <ul class="upgrades">
+      <li>
                 <div class="upgrade-tile">
                   <img src="/images/upgrades/flux-cap.png" alt="Flux Capacitor" />
                 </div>
                 <a class="upgrade-link" href="#">Flux Capacitor</a>
-              </li>
-              <li>
+      </li>
+      <li>
                 <div class="upgrade-tile">
                   <img src="/images/upgrades/flame.jpg" alt="Flame Decals" />
                 </div>
                 <a class="upgrade-link" href="#">Flame Decals</a>
-              </li>
-              <li>
+      </li>
+      <li>
                 <div class="upgrade-tile">
                   <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Stickers" />
                 </div>
                 <a class="upgrade-link" href="#">Bumper Stickers</a>
-              </li>
-              <li>
+      </li>
+      <li>
                 <div class="upgrade-tile">
                   <img src="/images/upgrades/hub-cap.jpg" alt="Hub Caps" />
                 </div>
                 <a class="upgrade-link" href="#">Hub Caps</a>
-              </li>
-            </ul>
-          </article>
+      </li>
+    </ul>
+  </article>
 
-          <article class="panel reviews-panel">
-            <h3>DMC Delorean Reviews</h3>
-            <ul class="reviews">
-              <li>“So fast it’s almost like traveling in time.” (4/5)</li>
-              <li>“Coolest ride on the road.” (4/5)</li>
-              <li>“I’m feeling McFly!” (5/5)</li>
-              <li>“The most futuristic ride of our day.” (4.5/5)</li>
-              <li>“80’s livin and I love it!” (5/5)</li>
-            </ul>
-          </article>
-        </section>
-      </main>
-
-      <%- include("partials/footer") %>
-    </div>
-  </body>
-</html>
+  <article class="panel reviews-panel">
+    <h3>DMC Delorean Reviews</h3>
+    <ul class="reviews">
+      <li>“So fast it’s almost like traveling in time.” (4/5)</li>
+      <li>“Coolest ride on the road.” (4/5)</li>
+      <li>“I’m feeling McFly!” (5/5)</li>
+      <li>“The most futuristic ride of our day.” (4.5/5)</li>
+      <li>“80’s livin and I love it!” (5/5)</li>
+    </ul>
+  </article>
+</section>

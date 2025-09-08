@@ -1,12 +1,16 @@
 const express = require("express")
 const path = require("path")
-const app = express()
+const expressLayouts = require("express-ejs-layouts")
+require("dotenv").config()
 
-app.use("/css", express.static(path.join(__dirname, "public/css")))
-app.use("/images", express.static(path.join(__dirname, "public/images")))
+const app = express()
 
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "layouts/main")
+
+app.use(require("./routes/static"))
 
 app.get("/", (req, res) => {
   res.render("index", { title: "CSE Motors" })
