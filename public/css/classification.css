@@ -1,0 +1,67 @@
+.veh-grid{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.veh-card{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+
+.veh-card__link{
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit;
+  height:100%;
+}
+
+.veh-card__media{
+  margin:0;
+  padding:12px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:160px;
+  border-bottom:3px solid #111;
+}
+
+.veh-card__media img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+.veh-card__body{
+  padding:12px 14px 16px;
+  text-align:center;
+}
+
+.veh-card__title{
+  margin:0 0 .4rem;
+  font-size:1rem;
+  text-decoration:underline;
+  color:#1d4ed8;
+}
+
+.veh-card__price{
+  margin:0;
+  font-weight:700;
+}
+
+.veh-card:hover .veh-card__title,
+.veh-card:focus-within .veh-card__title{
+  text-decoration:underline;
+}
+
+@media (min-width: 900px){
+  .veh-card__media{ min-height:180px; }
+}
