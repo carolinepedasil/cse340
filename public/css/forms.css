@@ -1,0 +1,66 @@
+.form-card {
+  background: #009fe3;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 70%;
+  margin: 0 auto;
+  display: grid;
+  gap: .75rem;
+}
+
+.form-card label {
+  font-weight: bold;
+  margin-top: .5rem;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+  width: 100%;
+  padding: .4rem;
+  border: none;
+  border-radius: 3px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: background-color .15s ease;
+}
+
+.form-card .touched:valid {
+  background-color: #c8e6c9;
+}
+
+.form-card .touched:invalid {
+  background-color: #ffcdd2;
+}
+
+button[type="submit"] {
+  margin-top: 1rem;
+  padding: .6rem;
+  background: #e3e3e3;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button[type="submit"]:hover {
+  background: #c5c5c5;
+}
+
+.flash {
+  padding: .6rem .9rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.flash-success {
+  background: #c8e6c9;
+  color: #2e7d32;
+  border-left: 4px solid #2e7d32;
+}
+
+.flash-error {
+  background: #ffcdd2;
+  color: #c62828;
+  border-left: 4px solid #c62828;
+}

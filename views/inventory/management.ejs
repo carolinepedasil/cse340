@@ -1,0 +1,16 @@
+<main id="main-content" class="container">
+  <h1><%= title %></h1>
+
+  <% if (success && success.length) { %>
+    <p class="flash flash-success"><%= success[0] %></p>
+  <% } %>
+  <% if (error && error.length) { %>
+    <p class="flash flash-error"><%= error[0] %></p>
+  <% } %>
+
+  <ul class="links">
+    <a href="/inv/add-classification">Add New Classification</a>
+    <br />
+    <a href="/inv/add">Add New Vehicle</a>
+  </ul>
+</main>

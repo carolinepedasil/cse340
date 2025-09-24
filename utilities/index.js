@@ -100,10 +100,27 @@ function buildClassificationGrid(items) {
   return `<ul class="veh-grid">${cards}</ul>`;
 }
 
+async function buildClassificationList(classification_id = null) {
+  const data = await invModel.getClassifications();
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>';
+  classificationList += "<option value=''>Choose a Classification</option>";
+  data.forEach((row) => {
+    classificationList += `<option value="${row.classification_id}"`;
+    if (classification_id != null && Number(row.classification_id) === Number(classification_id)) {
+      classificationList += " selected";
+    }
+    classificationList += `>${row.classification_name}</option>`;
+  });
+  classificationList += "</select>";
+  return classificationList;
+}
+
 module.exports = {
   formatUSD,
   formatNumber,
   buildVehicleDetailHTML,
   getNav,
   buildClassificationGrid,
+  buildClassificationList,
 };

@@ -1,20 +1,46 @@
-const express = require("express")
-const path = require("path")
-const expressLayouts = require("express-ejs-layouts")
-require("dotenv").config()
+const express = require("express");
+const path = require("path");
+const expressLayouts = require("express-ejs-layouts");
+const session = require("express-session");
+const flash = require("connect-flash");
+require("dotenv").config();
 
-const app = express()
+const app = express();
 
-app.set("views", path.join(__dirname, "views"))
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "layouts/main")
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "layouts/main");
 
-app.use(require("./routes/static"))
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "dev-secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: true, sameSite: "lax" },
+  })
+);
+app.use(flash());
+
+const utilities = require("./utilities");
+app.use(async (req, res, next) => {
+  try {
+    res.locals.nav = await utilities.getNav();
+  } catch {
+    res.locals.nav = "";
+  }
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 app.get("/", (req, res) => {
-  res.render("index", { title: "CSE Motors" })
-})
+  res.render("index", { title: "CSE Motors" });
+});
 
 const inventoryRoute = require("./routes/inventoryRoute");
 app.use("/inv", inventoryRoute);

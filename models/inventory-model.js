@@ -37,8 +37,50 @@ async function getClassifications() {
   return result.rows;
 }
 
+async function insertClassification(classification_name) {
+  const sql = `INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING classification_id`;
+  const result = await pool.query(sql, [classification_name]);
+  return result.rowCount;
+}
+
+async function insertInventory({
+  classification_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+}) {
+  const sql = `
+    INSERT INTO public.inventory
+      (classification_id, inv_make, inv_model, inv_description,
+       inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    RETURNING inv_id`;
+  const values = [
+    Number(classification_id),
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    Number(inv_price),
+    Number(inv_year),
+    Number(inv_miles),
+    inv_color,
+  ];
+  const result = await pool.query(sql, values);
+  return result.rowCount;
+}
+
 module.exports = {
   getVehicleById,
   getInventoryByClassificationName,
   getClassifications,
+  insertClassification,
+  insertInventory,
 };
