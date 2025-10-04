@@ -1,0 +1,44 @@
+<main class="container page-login">
+  <h1>Login</h1>
+
+  <% if (success && success.length) { %>
+    <div class="flash flash-success"><%= success[0] %></div>
+  <% } %>
+  <% if (error && error.length) { %>
+    <div class="flash flash-error"><%= error[0] %></div>
+  <% } %>
+  <% if (errors && errors.length) { %>
+    <div class="flash flash-error">
+      <ul>
+        <% errors.forEach(e => { %><li><%= e.msg %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/account/login" method="post" class="form-card" novalidate>
+    <label for="account_email">Email Address:</label>
+    <input id="account_email" name="account_email" type="email" required />
+
+    <label for="account_password">Password</label>
+    <input id="account_password" name="account_password" type="password" required />
+    <p><small>Passwords must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</small></p>
+
+    <button type="button" class="toggle-btn" id="togglePwd">Show Password</button>
+
+    <button type="submit">Login</button>
+
+    <p>No account? <a href="/account/register">Sign-up</a></p>
+  </form>
+</main>
+
+<script>
+  const btn = document.getElementById('togglePwd');
+  const pwd = document.getElementById('account_password');
+  if (btn && pwd){
+    btn.addEventListener('click', () => {
+      const show = pwd.type === 'password';
+      pwd.type = show ? 'text' : 'password';
+      btn.textContent = show ? 'Hide Password' : 'Show Password';
+    });
+  }
+</script>

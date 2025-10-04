@@ -27,6 +27,7 @@ app.use(
 app.use(flash());
 
 const utilities = require("./utilities");
+app.locals.utilities = utilities; 
 app.use(async (req, res, next) => {
   try {
     res.locals.nav = await utilities.getNav();
@@ -35,6 +36,9 @@ app.use(async (req, res, next) => {
   }
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.loggedin = Boolean(req.session?.account);
+  res.locals.account_firstname = req.session?.account?.account_firstname || "";
+  res.locals.accountData = req.session?.account || null;
   next();
 });
 
@@ -44,6 +48,9 @@ app.get("/", (req, res) => {
 
 const inventoryRoute = require("./routes/inventoryRoute");
 app.use("/inv", inventoryRoute);
+
+const accountRoute = require("./routes/accountRoute");
+app.use("/account", accountRoute);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");

@@ -4,5 +4,19 @@
     <img src="/images/site/logo.png" width="40" height="40" alt="" />
     <span class="brand-title">CSE Motors</span>
   </div>
-  <a class="account" href="#" aria-label="My Account">My Account</a>
+  <ul>
+    <% if (locals.loggedin) { %>
+      <div style="float:right">
+        <a href="/account/">Welcome <%= locals.account_firstname %></a>
+      </div>
+      <br />
+      <div style="float:right">
+        <a href="/account/logout">Logout</a>
+      </div>
+    <% } else { %>
+      <div style="float:right">
+        <a href="/account/login">MY ACCOUNT</a>
+      </div>
+    <% } %>
+  </ul>
 </header>

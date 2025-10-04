@@ -1,0 +1,39 @@
+<main class="container page-login">
+  <h1>Register</h1>
+
+  <% if (errors && errors.length) { %>
+    <ul class="errors">
+      <% errors.forEach(e => { %><li><%= e.msg %></li><% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/account/register" method="post" class="form-card" novalidate>
+    <label for="account_firstname">First Name</label>
+    <input id="account_firstname" name="account_firstname"
+           required
+           class="<%= (errors && errors.length) ? 'touched' : '' %>"
+           value="<%= account_firstname || '' %>" />
+
+    <label for="account_lastname">Last Name</label>
+    <input id="account_lastname" name="account_lastname"
+           required
+           class="<%= (errors && errors.length) ? 'touched' : '' %>"
+           value="<%= account_lastname || '' %>" />
+
+    <label for="account_email">Email Address:</label>
+    <input id="account_email" name="account_email" type="email"
+           required
+           class="<%= (errors && errors.length) ? 'touched' : '' %>"
+           value="<%= account_email || '' %>" />
+
+    <label for="account_password">Password</label>
+    <input id="account_password" name="account_password" type="password"
+           required
+           minlength="12"
+           pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{12,}$"
+           class="<%= (errors && errors.length) ? 'touched' : '' %>" />
+    <p><small>Passwords must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</small></p>
+
+    <button type="submit">Create Account</button>
+  </form>
+</main>

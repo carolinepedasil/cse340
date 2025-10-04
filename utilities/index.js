@@ -116,6 +116,19 @@ async function buildClassificationList(classification_id = null) {
   return classificationList;
 }
 
+function checkLogin(req, res, next) {
+  if (res.locals.accountData) return next();
+  req.flash("error", "Please log in to continue.");
+  return res.redirect("/account/login");
+}
+
+function checkEmployee(req, res, next) {
+  const t = res.locals.accountData?.account_type;
+  if (t === "Employee" || t === "Admin") return next();
+  req.flash("error", "You must be an employee or admin to access this area.");
+  return res.redirect("/account/login");
+}
+
 module.exports = {
   formatUSD,
   formatNumber,
@@ -123,4 +136,6 @@ module.exports = {
   getNav,
   buildClassificationGrid,
   buildClassificationList,
+  checkLogin,
+  checkEmployee,
 };

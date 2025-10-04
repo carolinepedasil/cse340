@@ -1,0 +1,64 @@
+<main class="container page-account">
+  <h1>Edit Account</h1>
+
+  <% if (success && success.length) { %>
+    <div class="flash flash-success"><%= success[0] %></div>
+  <% } %>
+  <% if (error && error.length) { %>
+    <div class="flash flash-error"><%= error[0] %></div>
+  <% } %>
+  <% if (errors && errors.length) { %>
+    <div class="flash flash-error">
+      <ul>
+        <% errors.forEach(e => { %><li><%= e.msg %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/account/update" method="post" class="form-account">
+    <label for="account_firstname">First Name</label>
+    <input type="text" id="account_firstname" name="account_firstname" required value="<%= account.account_firstname %>">
+
+    <label for="account_lastname">Last Name</label>
+    <input type="text" id="account_lastname" name="account_lastname" required value="<%= account.account_lastname %>">
+
+    <label for="account_email">Email</label>
+    <input type="email" id="account_email" name="account_email" required value="<%= account.account_email %>">
+
+    <input type="hidden" name="account_id" value="<%= account.account_id %>">
+    <button type="submit" class="btn-update">Update</button>
+  </form>
+
+  <hr>
+
+  <h2>Update Password</h2>
+  <p class="pw-req">
+    Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character
+    <br />
+    <em>*note your original password will be changed.</em>
+  </p>
+
+  <form action="/account/update-password" method="post" class="form-password" novalidate>
+    <label for="account_password">Password</label>
+    <input type="password" id="account_password" name="account_password" required>
+
+    <p class="hint"><small>Passwords must be minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</small></p>
+
+    <button type="button" class="toggle-btn" id="togglePwd">Show Password</button>
+    <br />
+    <input type="hidden" name="account_id" value="<%= account.account_id %>">
+    <button type="submit" class="btn-change">Change Password</button>
+  </form>
+</main>
+
+<script>
+  const btn = document.getElementById('togglePwd');
+  const pwd = document.getElementById('account_password');
+  if (btn && pwd){
+    btn.addEventListener('click', () => {
+      const show = pwd.type === 'password';
+      pwd.type = show ? 'text' : 'password';
+      btn.textContent = show ? 'Hide Password' : 'Show Password';
+    });
+  }
+</script>

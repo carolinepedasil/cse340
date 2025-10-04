@@ -1,0 +1,121 @@
+.page-login .form-card {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  background: #009fe3;
+  border-radius: 10px;
+  box-shadow: 0 2px 0 rgba(0,0,0,.06);
+  padding: 1rem 1.25rem 1.1rem;
+  position: relative;
+}
+
+.page-login .form-card::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 2px solid rgba(255,255,255,.6);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.page-login .form-card label {
+  font-weight: 700;
+  color: #072b3a;
+  margin-top: .6rem;
+}
+
+.page-login .form-card input {
+  background: #fff;
+  border-radius: 3px;
+  height: 34px;
+}
+
+.page-login .form-card small {
+  display: inline-block;
+  margin-top: .25rem;
+  font-style: italic;
+  color: #0a2330;
+}
+
+.page-login .form-card .toggle-btn,
+.page-login .form-card button[type="submit"] {
+  display: inline-block;
+  margin-top: .6rem;
+  padding: .55rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.page-login .form-card .toggle-btn {
+  background: #2f2f2f;
+  color: #fff;
+}
+
+.page-login .form-card button[type="submit"] {
+  background: #e3e3e3;
+  color: #111;
+  border-radius: 4px;
+}
+
+.page-login .login-signup {
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+.page-account .form-account {
+  width: 40%;
+  display: grid;
+  gap: .5rem;
+}
+
+.page-account .form-account input {
+  height: 34px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: .4rem;
+}
+
+.page-account .btn-update {
+  display: inline-block;
+  margin-top: .5rem;
+  background: #009fe3;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: .45rem .8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.page-account h2 {
+  margin-top: 1.25rem;
+}
+
+.page-account .pw-req {
+  margin: .25rem 0 .5rem;
+  color: #333;
+}
+
+.page-account form[action="/account/update-password"] {
+  max-width: 520px;
+  margin-top: 1rem;
+}
+
+.page-account form[action="/account/update-password"] input {
+  height: 34px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: .4rem;
+}
+
+.page-account form[action="/account/update-password"] .toggle-btn {
+  background: #2f2f2f;
+  color: #fff;
+  border-radius: 999px;
+  padding: .55rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: .4rem;
+}
