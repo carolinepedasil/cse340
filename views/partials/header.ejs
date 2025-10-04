@@ -6,17 +6,17 @@
   </div>
   <ul>
     <% if (locals.loggedin) { %>
-      <div style="float:right">
+      <li style="float:right">
         <a href="/account/">Welcome <%= locals.account_firstname %></a>
-      </div>
+      </li>
       <br />
-      <div style="float:right">
+      <li style="float:right">
         <a href="/account/logout">Logout</a>
-      </div>
+      </li>
     <% } else { %>
-      <div style="float:right">
+      <li style="float:right">
         <a href="/account/login">MY ACCOUNT</a>
-      </div>
+      </li>
     <% } %>
   </ul>
 </header>
