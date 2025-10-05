@@ -17,46 +17,31 @@ async function buildDetailView(req, res, next) {
       throw err;
     }
 
-    const nav = await utilities.getNav();
-    const detailHTML = utilities.buildVehicleDetailHTML(vehicle);
     const title = `${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}`;
+    const detailHTML = utilities.buildVehicleDetailHTML(vehicle);
+    const reviewModel = require("../models/review-model");
+    const reviews = await reviewModel.getReviewsByVehicle(invId);
+    const reviewAgg = await reviewModel.getAggregateForVehicle(invId);
 
-    return res.status(200).render("./inventory/detail", {
+    const nav = await utilities.getNav();
+
+    return res.render("inventory/detail", {
       title,
       nav,
       detailHTML,
+      reviews,
+      reviewAgg,
+      inv_id: invId,
       errors: null,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-function causeServerError(req, res, next) {
-  try {
-    throw new Error("Oh no! There was a crash. Maybe try a different route?");
-  } catch (err) {
-    err.status = 500;
-    next(err);
-  }
-}
-
-async function buildByClassificationName(req, res, next) {
-  try {
-    const classificationName = req.params.classificationName;
-    const data = await invModel.getInventoryByClassificationName(classificationName);
-    const nav = await utilities.getNav();
-    const grid = await utilities.buildClassificationGrid(data);
-
-    res.render("inventory/classification", {
-      title: `${classificationName} Vehicles`,
-      nav,
-      grid,
-      errors: null
+      reviewForm: null,
     });
   } catch (err) {
     next(err);
   }
+}
+
+function causeServerError(_req, _res, _next) {
+  throw new Error("Intentional error for testing");
 }
 
 async function buildByClassificationName(req, res, next) {
@@ -68,53 +53,41 @@ async function buildByClassificationName(req, res, next) {
       err.status = 404;
       throw err;
     }
+
+    const nav = await utilities.getNav();
     const title = `${classificationName} Vehicles`;
     const grid = utilities.buildClassificationGrid(rows);
-    res.render("inventory/classification", { title, grid, errors: null });
+
+    return res.render("inventory/classification", {
+      title,
+      nav,
+      grid,
+      errors: null
+    });
   } catch (err) {
     next(err);
   }
 }
 
-async function buildDetailView(req, res, next) {
-  try {
-    const invId = Number(req.params.inv_id);
-    if (!Number.isInteger(invId)) {
-      const err = new Error("Invalid vehicle id.");
-      err.status = 400;
-      throw err;
-    }
-    const vehicle = await invModel.getVehicleById(invId);
-    if (!vehicle) {
-      const err = new Error("Vehicle not found.");
-      err.status = 404;
-      throw err;
-    }
-    const title = `${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}`;
-    const detailHTML = utilities.buildVehicleDetailHTML(vehicle);
-    res.render("inventory/detail", { title, detailHTML });
-  } catch (err) {
-    next(err);
-  }
-}
-
-function causeServerError(_req, _res, _next) {
-  throw new Error("Intentional error for testing");
-}
-
-async function buildManagementView(req, res, next) {
+async function buildManagementView(_req, res, next) {
   try {
     const title = "Vehicle Management";
-    res.render("inventory/management", { title });
+    const nav = await utilities.getNav();
+    return res.render("inventory/management", { title, nav, errors: null });
   } catch (err) {
     next(err);
   }
 }
 
-
-async function buildAddClassification(req, res, next) {
+async function buildAddClassification(_req, res, next) {
   try {
-    res.render("inventory/add-classification", { title: "Add New Classification", errors: null, classification_name: "" });
+    const nav = await utilities.getNav();
+    return res.render("inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: null,
+      classification_name: ""
+    });
   } catch (err) {
     next(err);
   }
@@ -125,8 +98,10 @@ async function createClassification(req, res, next) {
     const { classification_name } = req.body;
 
     if (req.validationErrors) {
+      const nav = await utilities.getNav();
       return res.status(400).render("inventory/add-classification", {
         title: "Add New Classification",
+        nav,
         errors: req.validationErrors,
         classification_name,
       });
@@ -135,12 +110,14 @@ async function createClassification(req, res, next) {
     const inserted = await invModel.insertClassification(classification_name);
     if (inserted === 1) {
       req.flash("success", "Classification created successfully.");
-      res.locals.nav = await utilities.getNav();
       return res.redirect("/inv");
     }
+
+    const nav = await utilities.getNav();
     req.flash("error", "Failed to create classification.");
     return res.status(500).render("inventory/add-classification", {
       title: "Add New Classification",
+      nav,
       errors: [{ msg: "Insert failed. Try again." }],
       classification_name,
     });
@@ -149,11 +126,13 @@ async function createClassification(req, res, next) {
   }
 }
 
-async function buildAddVehicle(req, res, next) {
+async function buildAddVehicle(_req, res, next) {
   try {
+    const nav = await utilities.getNav();
     const classificationList = await utilities.buildClassificationList();
-    res.render("inventory/add-vehicle", {
+    return res.render("inventory/add-vehicle", {
       title: "Add New Vehicle",
+      nav,
       classificationList,
       errors: null,
       classification_id: "",
@@ -177,9 +156,11 @@ async function createVehicle(req, res, next) {
     const payload = { ...req.body };
 
     if (req.validationErrors) {
+      const nav = await utilities.getNav();
       const classificationList = await utilities.buildClassificationList(payload.classification_id);
       return res.status(400).render("inventory/add-vehicle", {
         title: "Add New Vehicle",
+        nav,
         classificationList,
         errors: req.validationErrors,
         ...payload,
@@ -189,14 +170,15 @@ async function createVehicle(req, res, next) {
     const inserted = await invModel.insertInventory(payload);
     if (inserted === 1) {
       req.flash("success", "Vehicle added successfully.");
-      res.locals.nav = await utilities.getNav();
       return res.redirect("/inv");
     }
 
+    const nav = await utilities.getNav();
     const classificationList = await utilities.buildClassificationList(payload.classification_id);
     req.flash("error", "Failed to add vehicle.");
     return res.status(500).render("inventory/add-vehicle", {
       title: "Add New Vehicle",
+      nav,
       classificationList,
       errors: [{ msg: "Insert failed. Try again." }],
       ...payload,

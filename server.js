@@ -52,6 +52,9 @@ app.use("/inv", inventoryRoute);
 const accountRoute = require("./routes/accountRoute");
 app.use("/account", accountRoute);
 
+const reviewRoute = require("./routes/reviewRoute");
+app.use("/reviews", reviewRoute);
+
 app.use((req, res, next) => {
   const err = new Error("Not Found");
   err.status = 404;

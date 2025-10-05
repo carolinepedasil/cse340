@@ -5,11 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= title %> | CSE Motors</title>
   <link rel="stylesheet" href="/css/detail.css">
+  <link rel="stylesheet" href="/css/review.css">
 </head>
 <body>
   <main id="main-content" class="container">
     <h1><%= title %></h1>
     <%- detailHTML %>
+  
+
+    <section id="reviews" class="reviews">
+      <h2>Reviews</h2>
+
+      <% if (reviewAgg && reviewAgg.count > 0) { %>
+        <p><strong>Average:</strong> <%= Number(reviewAgg.avg).toFixed(1) %>/5 • <%= reviewAgg.count %> review(s)</p>
+      <% } else { %>
+        <p>No reviews yet. Be the first to review this vehicle!</p>
+      <% } %>
+
+      <ul class="review-list">
+        <% if (reviews && reviews.length) { %>
+          <% reviews.forEach(r => { %>
+            <li class="review-item">
+              <div class="review-meta">
+                <span class="review-rating">Rating: <%= r.rating %>/5</span>
+                <span class="review-author">
+                  <% if (r.account_firstname) { %>
+                    by <%= r.account_firstname %> <%= r.account_lastname %>
+                  <% } else { %>
+                    by Anonymous
+                  <% } %>
+                </span>
+                <span class="review-date">
+                  <%= new Date(r.created_at).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "2-digit",
+                        hour12: true
+                      }) %>
+                </span>
+              </div>
+              <p class="review-comment"><%= r.comment %></p>
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+
+      <hr />
+
+      <% if (locals.accountData) { %>
+        <h3>Leave a review</h3>
+        <% if (errors) { %>
+          <div class="errors">
+            <ul>
+              <% errors.forEach(e => { %>
+                <li><%= e.msg %></li>
+              <% }) %>
+            </ul>
+          </div>
+        <% } %>
+        <form action="/reviews/<%= typeof inv_id !== 'undefined' ? inv_id : (typeof vehicle !== 'undefined' ? vehicle.inv_id : (reviews && reviews[0] ? reviews[0].inv_id : '')) %>" method="post" id="reviewForm" novalidate>
+          <div>
+            <label for="rating">Rating</label>
+            <select id="rating" name="rating" required>
+              <option value="">Choose a rating</option>
+              <% for (let i = 1; i <= 5; i++) { %>
+                <option value="<%= i %>" 
+                  <%= reviewForm && Number(reviewForm.rating) === i ? "selected" : "" %>>
+                  <%= i %>
+                </option>
+              <% } %>
+            </select>
+          </div>
+          <div>
+            <label for="comment">Comment</label>
+            <textarea id="comment" name="comment" rows="4" required minlength="5" maxlength="1000"><%= reviewForm && reviewForm.comment ? reviewForm.comment : '' %></textarea>
+          </div>
+          <button type="submit">Submit Review</button>
+        </form>
+      <% } else { %>
+        <p><a href="/account/login">Log in</a> to leave a review.</p>
+      <% } %>
+    </section>
   </main>
+
+  <script src="/js/review.js"></script>
 </body>
 </html>
